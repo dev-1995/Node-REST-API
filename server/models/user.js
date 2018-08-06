@@ -42,7 +42,7 @@ UserSchema.methods.toJSON = function () {
 UserSchema.methods.generateAuthToken = function(){
 	var user = this;
 	var access = 'auth';
-	var token = jwt.sign({_id:user._id.toHexString(),access},'some').toString();
+	var token = jwt.sign({_id:user._id.toHexString(),access},process.env.JWT_SECRET).toString();
 	user.tokens.push({access, token});
 	return user.save().then(()=>{return token;});
 }
@@ -51,7 +51,7 @@ UserSchema.methods.generateAuthToken = function(){
   var decoded;
 
   try {
-    decoded = jwt.verify(token, 'some');
+    decoded = jwt.verify(token, process.env.JWT_SECRET);
   } catch (e) {
   	console.log(e);
     return Promise.reject();
@@ -64,6 +64,8 @@ UserSchema.methods.generateAuthToken = function(){
   });
 };
 
+<<<<<<<<< Temporary merge branch 1
+=========
 UserSchema.statics.findByCredentials = function(email,password){
 	var User = this;
 	return User.findOne({email}).then((user)=>{
@@ -84,6 +86,7 @@ UserSchema.statics.findByCredentials = function(email,password){
 	})
 }
 
+>>>>>>>>> Temporary merge branch 2
 
 UserSchema.pre('save',function(next){
 	var user = this;
