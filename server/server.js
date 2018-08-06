@@ -2,7 +2,7 @@
 const { mongoose } = require('./db/mongoose');
 const express = require('express');
 const bodyParser = require('body-parser');
-
+const {authenticate} = require('./middleware/authenticate');
 var { Todo } = require('./models/todo');
 var { User } = require('./models/user');
 
@@ -48,6 +48,11 @@ app.post('/users',(req,res)=>{
 		res.status(400).send(err);
 	})
 })
+
+
+app.get('/users/me', authenticate, (req,res)=>{
+	res.send(req.user);
+});
 
 //Start Server
 app.listen(3000,()=>{
