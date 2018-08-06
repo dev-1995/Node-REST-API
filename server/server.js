@@ -49,24 +49,6 @@ app.post('/users',(req,res)=>{
 	})
 })
 
-
-app.get('/users/me', authenticate, (req,res)=>{
-	console.log('req.user: ', req.user);
-	res.send(req.user);
-});
-
-
-//POST /users/login
-app.post('/users/login',(req, res)=>{
-	User.findByCredentials(req.body.email,req.body.password).then((user)=>{
-		user.generateAuthToken().then((token)=>{
-			res.header('x-auth',token).send(user);
-		})
-		
-	}).catch((err)=>{
-		res.status(400).send();
-	})
-})
 //Start Server
 app.listen(3000,()=>{
 	console.log('Server Running at localhost:3000');
