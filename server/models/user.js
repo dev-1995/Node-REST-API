@@ -64,6 +64,8 @@ UserSchema.methods.generateAuthToken = function(){
   });
 };
 
+<<<<<<<<< Temporary merge branch 1
+=========
 UserSchema.statics.findByCredentials = function(email,password){
 	var User = this;
 	return User.findOne({email}).then((user)=>{
@@ -84,6 +86,7 @@ UserSchema.statics.findByCredentials = function(email,password){
 	})
 }
 
+>>>>>>>>> Temporary merge branch 2
 
 UserSchema.pre('save',function(next){
 	var user = this;
